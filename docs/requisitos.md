@@ -218,3 +218,14 @@ Então todos os testes de domínio e serviço passam sem erros,
 | Falta de rastreabilidade | RF-09, RNF-07 |
 
 ---
+
+### 3.3 Links
+
+| Links |
+|---|---|
+| https://kpmg.com/br/pt/insights/2024/11/pesquisa-abrappe-2024.html |
+| https://wake.tech/blog/oms-ruptura-de-estoque/|
+| https://www.agppesquisas.com.br/noticias/ruptura-de-estoque-no-varejo/ |
+| [Falta de rastreabilidade | RF-09, RNF-07](https://foodforum.com.br/perdas-varejo-kpmg/) |
+
+---
