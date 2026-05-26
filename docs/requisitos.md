@@ -212,26 +212,7 @@ Então todos os testes de domínio e serviço passam sem erros,
   usando o repositório mock em memória.
 ```
 
----
-
-### 3.2 Rastreabilidade RF → Teste
-
-| Requisito | Caso de teste sugerido | Tipo |
-|---|---|---|
-| RF-01 | `test_cadastrar_produto_valido` | Unitário |
-| RF-02 | `test_cadastrar_produto_sku_duplicado` | Unitário |
-| RF-03 | `test_editar_produto_preserva_historico` | Unitário |
-| RF-04 | `test_inativar_produto_bloqueia_movimentacao` | Unitário |
-| RF-06 | `test_entrada_aumenta_quantidade` | Unitário |
-| RF-07 | `test_saida_diminui_quantidade` | Unitário |
-| RF-08 | `test_saida_estoque_insuficiente_rejeitada` | Unitário |
-| RF-10 | `test_alerta_nivel_minimo_exibido` | Unitário |
-| RNF-02 | `test_dominio_sem_api_real` | Integração (mock) |
-| RNF-03 | `test_persistencia_via_sheets` | Integração (API real) |
-
----
-
-### 3.3 Matriz de Cobertura (Problemas × Requisitos)
+### 3.2 Matriz de Cobertura (Problemas × Requisitos)
 
 | Problema de negócio | Requisitos que cobrem |
 |---|---|
@@ -241,21 +222,3 @@ Então todos os testes de domínio e serviço passam sem erros,
 | Falta de rastreabilidade | RF-09, RNF-07 |
 
 ---
-
-### 3.4 Requisitos Fora de Escopo (explicitamente excluídos)
-
-Os itens abaixo foram identificados durante a elicitação mas não fazem parte do escopo deste projeto, por decisão da equipe, para manter foco na qualidade de engenharia:
-
-- Interface gráfica (GUI ou web)
-- Autenticação de usuários / controle de acesso
-- Múltiplos depósitos / localizações físicas
-- Integração com sistemas de PDV (ponto de venda)
-- Relatórios gráficos ou exportação para PDF
-- Gestão de fornecedores
-
----
-
-> Documento produzido com base na especificação do projeto StockFlow.
-> **Responsável pela especificação:** Daniel Elder Kroda
-> **Revisão arquitetural:** Michel Rochytor Lima Barbosa
-> **Validação de testes:** João Pedro Gonçalves de Oliveira
