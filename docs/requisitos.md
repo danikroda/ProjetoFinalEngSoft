@@ -105,10 +105,6 @@ As histórias estão organizadas por papel e prioridade (MoSCoW).
 | RNF-02 | Testabilidade | O domínio (`domain/`) e os serviços (`service/`) devem ser 100% testáveis sem conexão com a Google Sheets API, via interface `RepositorioBase` mockada. |
 | RNF-03 | Persistência | Toda leitura e escrita de dados deve passar pela Google Sheets API via `gspread`; nenhum dado deve ser armazenado localmente além das credenciais. |
 | RNF-04 | Portabilidade | O sistema deve funcionar em qualquer ambiente com Python ≥ 3.10 e as dependências `gspread` e `google-auth` instaladas. |
-| RNF-05 | Usabilidade CLI | Cada operação deve ser executável com um único comando. O sistema deve exibir mensagens de erro legíveis por humanos, não stack traces. |
-| RNF-06 | Confiabilidade | Falhas de conectividade com a API (timeout, quota exceeded) devem ser capturadas e exibidas como erro amigável sem encerrar o processo com código de saída não-zero inesperado. |
-| RNF-07 | Rastreabilidade | Toda movimentação registrada deve conter timestamp ISO 8601 gerado pelo sistema, não pelo usuário. |
-| RNF-08 | Manutenibilidade | A cobertura de testes automatizados das classes de domínio e serviço deve ser ≥ 80% (medida por `coverage.py`). |
 
 ---
 
