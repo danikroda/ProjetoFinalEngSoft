@@ -1,0 +1,16 @@
+# === Python e Ambiente Virtual ===
+.venv/
+venv/
+ENV/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+# === Configurações do Projeto ===
+codigo/stockflow.json
+# === Configurações Locais e Segredos (StockFlow) ===
+codigo/.env
