@@ -10,6 +10,7 @@ __pycache__/
 .Python
 pip-log.txt
 pip-delete-this-directory.txt
-
+# === Configurações do Projeto ===
+codigo/stockflow.json
 # === Configurações Locais e Segredos (StockFlow) ===
-.env
+codigo/.env
