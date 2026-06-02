@@ -25,18 +25,27 @@ class Produto:
 
     @classmethod
     def do_repositorio(cls, linha: list) -> 'Produto':
-        """Reconstrói um objeto Produto a partir dos dados textuais do Google Sheets."""
+        """Reconstrói um objeto Produto removendo espaços em branco das strings."""
         if not linha or len(linha) < 7:
             raise ValueError("Dados do repositório incompletos para instanciar Produto.")
             
+        # O .strip() remove os espaços invisíveis antes e depois do texto
+        sku_limpo = linha[0].strip()
+        nome_limpo = linha[1].strip()
+        preco_limpo = float(linha[2].strip())
+        categoria_limpo = linha[3].strip()
+        ativo_limpo = linha[4].strip().lower() == 'true'
+        nivel_minimo_limpo = int(linha[5].strip())
+        quantidade_limpo = int(linha[6].strip())
+            
         return cls(
-            sku=linha[0],
-            nome=linha[1],
-            preco=float(linha[2]),
-            categoria=linha[3],
-            ativo=linha[4].lower() == 'true',
-            nivel_minimo=int(linha[5]),
-            quantidade=int(linha[6])
+            sku=sku_limpo,
+            nome=nome_limpo,
+            preco=preco_limpo,
+            categoria=categoria_limpo,
+            ativo=ativo_limpo,
+            nivel_minimo=nivel_minimo_limpo,
+            quantidade=quantidade_limpo
         )
 
     def para_linha_repositorio(self) -> list:

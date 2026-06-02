@@ -39,15 +39,33 @@ class GoogleSheetsRepository:
     def listar_todos(self) -> List[Produto]:
         """Lê todas as linhas da planilha e converte em objetos da classe Produto"""
         try:
-            # Pega todas as linhas da planilha. O [1:] pula a primeira linha (cabeçalho)
-            todas_linhas = self.__tabela.get_all_values()[1:]
+            # Pega todas as linhas brutas da planilha
+            todas_linhas = self.__tabela.get_all_values()
+            
+            print(f"\n🔍 [DIAGNÓSTICO] Total de linhas lidas (com cabeçalho): {len(todas_linhas)}")
+            if todas_linhas:
+                print(f"🔍 [DIAGNÓSTICO] Linha do Cabeçalho: {todas_linhas[0]}")
+                if len(todas_linhas) > 1:
+                    print(f"🔍 [DIAGNÓSTICO] Primeira linha de dados: {todas_linhas[1]}")
+            
+            # O [1:] pula a primeira linha (cabeçalho)
+            linhas_dados = todas_linhas[1:]
             
             produtos = []
-            for linha in todas_linhas:
+            for idx, linha in enumerate(linhas_dados):
                 # Evita linhas completamente vazias na planilha
                 if linha and any(linha):
-                    # Uso do padrão Factory Method encapsulado no modelo
-                    produtos.append(Produto.do_repositorio(linha))
+                    try:
+                        # Força o preenchimento de colunas faltantes com strings vazias para não quebrar o índice
+                        while len(linha) < 7:
+                            linha.append("")
+                            
+                        # Tenta transformar a linha em um Produto
+                        prod = Produto.do_repositorio(linha)
+                        produtos.append(prod)
+                    except Exception as erro_linha:
+                        print(f"⚠️ [Aviso] Erro ao converter a linha {idx + 2}: {linha}. Detalhe: {erro_linha}")
+                        
             return produtos
         except Exception as e:
             raise RuntimeError(f"Erro ao ler dados da planilha: {e}")
