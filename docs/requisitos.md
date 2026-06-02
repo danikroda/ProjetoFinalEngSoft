@@ -117,57 +117,6 @@ A elicitação foi conduzida combinando quatro técnicas complementares, conecta
 
 ---
 
-#### Stakeholder 3 — Equipe de Desenvolvimento *(interno)*
-
-**Quem é:** Os três membros do projeto, com interesse na qualidade de engenharia e manutenibilidade.
-
-**Necessidades:**
-- Domínio testável sem depender de API externa
-- Interface abstrata de repositório para mockar o Sheets nos testes unitários
-- Cobertura de testes mensurável via `coverage.py`
-
-**Restrições que originam requisitos:**
-
-| Restrição | Requisito gerado |
-|---|---|
-| Testes não podem depender de credenciais reais | RNF-02 (RepositorioBase mockável) |
-| Arquitetura deve isolar domínio de infraestrutura | RNF-01 (camadas com dependência unidirecional) |
-| Qualidade deve ser verificável numericamente | RNF-08 (cobertura ≥ 80%) |
-
----
-
-#### Stakeholder 4 — Auditoria / Contabilidade *(secundário, sem acesso ao CLI)*
-
-**Quem é:** Contador externo ou dono que faz revisão periódica do inventário para fins fiscais ou gerenciais.
-
-**Como interage:** Não usa o CLI. Acessa diretamente a planilha Google Sheets — que é o banco de dados visível do sistema.
-
-**Necessidades:**
-- Histórico completo e imutável de todas as movimentações
-- Timestamps confiáveis em cada registro
-- Dados legíveis por humanos na planilha, sem codificação obscura
-
-**Restrições que originam requisitos:**
-
-| Restrição | Requisito gerado |
-|---|---|
-| Acessa a planilha diretamente; a estrutura das abas é parte da interface | Estrutura da planilha deve ser estável e autodescritiva |
-| Não pode confiar em datas inseridas manualmente pelo operador | RNF-07 (timestamp ISO 8601 gerado pelo sistema) |
-
----
-
-#### Stakeholder 5 — Google (restrição de plataforma) *(externo)*
-
-Não é um usuário, mas impõe restrições concretas que se tornam requisitos:
-
-| Restrição da plataforma | Requisito gerado |
-|---|---|
-| Quota: 300 requisições/minuto por projeto | RNF-06 (tratamento de falhas de conectividade; operações em lote agrupadas) |
-| Autenticação obrigatória via conta de serviço | RNF-04 (setup de `credentials.json` documentado) |
-| Latência de rede não-zero por operação | Justifica arquitetura que evita uma chamada API por campo editado |
-
----
-
 ### 1.4 Histórias de Usuário
 
 As histórias seguem o modelo padrão: **Como** [papel], **quero** [ação], **para que** [valor de negócio]. A prioridade segue o framework MoSCoW.
@@ -191,13 +140,6 @@ As histórias seguem o modelo padrão: **Como** [papel], **quero** [ação], **p
 | HU-08 | Operador | cadastrar um novo produto com nome, SKU, categoria e quantidade inicial | eu passe a controlá-lo no sistema a partir do momento do cadastro | Must |
 | HU-09 | Operador | editar os dados de um produto existente (nome, categoria, nível mínimo) | eu corrija informações sem perder o histórico de movimentações | Should |
 | HU-10 | Operador | inativar um produto descontinuado | ele não apareça nas listagens ativas mas seu histórico seja preservado | Should |
-
-#### Como Desenvolvedor / Testador
-
-| ID | Como… | Quero… | Para que… | Prior. |
-|---|---|---|---|---|
-| HU-11 | Desenvolvedor | que a lógica de domínio seja independente do Google Sheets | eu possa testá-la com mocks sem credenciais reais | Must |
-| HU-12 | Desenvolvedor | que a interface de repositório seja abstraída em uma classe base | eu possa trocar o backend de persistência sem alterar o domínio | Must |
 
 ---
 
