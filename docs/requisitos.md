@@ -53,22 +53,6 @@ A elicitação foi conduzida combinando quatro técnicas complementares, conecta
 - Operadores registram saídas com atraso ou em lote → validação de data obrigatória mas com default = hoje (RF-06).
 - A planilha Google Sheets já é usada como registro oficial em vários negócios → escolha de persistência no Sheets aumenta adoção, não é apenas decisão técnica (RNF-03).
 
-#### Técnica 3 — Observação Direta
-**Fonte:** Acompanhamento do fluxo de trabalho de um operador durante recebimento de mercadoria.
-
-**O que revelou:**
-- Sob pressão, o operador digita quantidades erradas (negativas, fracionárias) sem perceber → origem da RN-04 (validação estrita de quantidade).
-- Produtos descontinuados permanecem na planilha "só para consultar o histórico" → origem do RF-04 (inativação sem deleção).
-- Stack traces e mensagens de erro técnicas são ignoradas ou causam abandono do sistema → origem do RNF-05 (erros legíveis por humanos).
-
-#### Técnica 4 — Brainstorming Interno da Equipe
-**Fonte:** Sessão estruturada com os três membros do projeto.
-
-**O que revelou:**
-- Necessidade de domínio testável sem API real → RNF-01, RNF-02 (arquitetura em camadas com repositório abstraído).
-- Risco de quota da Sheets API em operações em lote → RNF-06 (tratamento de falhas de conectividade).
-- Cobertura de testes deve ser mensurável para fins acadêmicos → RNF-08.
-
 ---
 
 ### 1.3 Stakeholders — Perfis Detalhados
