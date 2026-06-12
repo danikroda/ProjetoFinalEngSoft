@@ -13,13 +13,14 @@ class EstoqueView:
         print(" 2. 📋 Listar Estoque Atual")
         print(" 3. 🔄 Dar Entrada / Saída no Estoque")
         print(" 4. 🚫 Alternar Status (Ativar/Desativar)")
-        print(" 5. ❌ Sair")
+        print(" 5. 🗑️  Deletar Produto")
+        print(" 6. ❌ Sair")
         print("="*45)
 
     def iniciar(self):
         while True:
             self.__exibir_menu_principal()
-            opcao = input("Escolha uma opção (1-5): ").strip()
+            opcao = input("Escolha uma opção (1-6): ").strip()
 
             if opcao == "1":
                 self.__menu_cadastrar()
@@ -30,11 +31,13 @@ class EstoqueView:
             elif opcao == "4":
                 self.__menu_alternar_status()
             elif opcao == "5":
+                self.__menu_deletar()
+            elif opcao == "6":
                 print("\nShutting down StockFlow... Fechando conexão com a API.")
                 print("Até logo, Michel!")
                 break
             else:
-                print("\n⚠️ Opção inválida! Digite um número de 1 a 5.")
+                print("\n⚠️ Opção inválida! Digite um número de 1 a 6.")
 
     def __menu_cadastrar(self):
         print("\n--- 📝 CADASTRAR NOVO PRODUTO ---")
@@ -90,3 +93,23 @@ class EstoqueView:
             print(f"\n✅ [Sucesso] O produto {prod_atualizado.nome} agora está {status_final}!")
         except Exception as e:
             print(f"\n❌ [Erro]: {e}")
+
+    def __menu_deletar(self):
+        print("\n--- 🗑️  DELETAR PRODUTO ---")
+        print("⚠️  Atenção: esta ação é permanente e não pode ser desfeita.")
+        print("    Para desativar sem perder histórico, use a opção 4.")
+        sku = input("Digite o SKU do produto a deletar (ou Enter para cancelar): ").strip().upper()
+        if not sku:
+            print("Operação cancelada.")
+            return
+        confirmacao = input(f"Confirma a exclusão do produto '{sku}'? (s/N): ").strip().lower()
+        if confirmacao != "s":
+            print("Operação cancelada.")
+            return
+        try:
+            nome = self.__controlador.deletar_produto(sku)
+            print(f"\n✅ [Sucesso] Produto '{nome}' ({sku}) removido permanentemente.")
+        except ValueError as e:
+            print(f"\n⚠️ [Erro]: {e}")
+        except Exception as e:
+            print(f"\n❌ [Erro de Sistema]: {e}")
