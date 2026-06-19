@@ -19,8 +19,9 @@ class EstoqueController:
         return novo_produto.sku
 
     def listar_todos_produtos(self) -> List[Produto]:
-        """Recupera a lista de todos os produtos cadastrados."""
-        return self.__repo.listar_todos()
+        """Recupera a lista de todos os produtos ativos cadastrados."""
+        todos = self.__repo.listar_todos()
+        return [produto for produto in todos if produto.ativo]
 
     def realizar_movimentacao(self, sku: str, quantidade: int) -> Produto:
         """Dá entrada (qtd positiva) ou saída (qtd negativa) no estoque de um produto."""
