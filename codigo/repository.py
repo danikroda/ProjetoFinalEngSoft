@@ -111,3 +111,17 @@ class GoogleSheetsRepository:
             raise ValueError(f"Não foi possível atualizar: SKU {produto.sku} não encontrado na planilha.")
         except Exception as e:
             raise RuntimeError(f"Erro ao atualizar dados na planilha: {e}")
+
+    def deletar(self, sku: str) -> None:
+        """Remove permanentemente a linha do produto na planilha pelo SKU."""
+        try:
+            todas_linhas = self.__tabela.get_all_values()
+            for idx, linha in enumerate(todas_linhas):
+                if linha and linha[0] == sku:
+                    self.__tabela.delete_rows(idx + 1)  # gspread usa índice 1-based
+                    return
+            raise ValueError(f"SKU '{sku}' não encontrado para exclusão.")
+        except ValueError:
+            raise
+        except Exception as e:
+            raise RuntimeError(f"Erro ao deletar produto no Google Sheets: {e}")

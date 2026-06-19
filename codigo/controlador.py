@@ -9,16 +9,13 @@ class EstoqueController:
 
     def cadastrar_novo_produto(self, nome: str, preco: float, categoria: str, nivel_minimo: int) -> str:
         """Cria um novo produto, valida as regras e envia para a planilha."""
-        # Cria a entidade (o construtor já roda as validações internas)
         novo_produto = Produto(
             nome=nome,
             preco=preco,
             categoria=categoria,
             nivel_minimo=nivel_minimo
         )
-        # Salva na API do Google Sheets
         self.__repo.salvar_novo(novo_produto)
-        # Retorna o SKU gerado para a View mostrar na tela
         return novo_produto.sku
 
     def listar_todos_produtos(self) -> List[Produto]:
@@ -31,10 +28,7 @@ class EstoqueController:
         if not produto:
             raise ValueError(f"Erro: O SKU '{sku}' não foi encontrado no sistema.")
         
-        # Altera o estado da entidade (dispara erro se tentar tirar mais do que tem)
         produto.atualizar_estoque(quantidade)
-        
-        # Se a regra de negócio aceitou, atualiza a linha correspondente na planilha
         self.__repo.atualizar(produto)
         return produto
 
@@ -44,9 +38,15 @@ class EstoqueController:
         if not produto:
             raise ValueError(f"Erro: O SKU '{sku}' não foi encontrado no sistema.")
         
-        # Executa a regra interna do modelo
         produto.alternar_status()
-        
-        # Salva a alteração na planilha
         self.__repo.atualizar(produto)
         return produto
+
+    def deletar_produto(self, sku: str) -> str:
+        """Remove permanentemente um produto do sistema pelo SKU. Retorna o nome do produto deletado."""
+        produto = self.__repo.buscar_por_sku(sku)
+        if not produto:
+            raise ValueError(f"Erro: O SKU '{sku}' não foi encontrado no sistema.")
+        nome = produto.nome
+        self.__repo.deletar(sku)
+        return nome
