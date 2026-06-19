@@ -87,6 +87,17 @@ python testes.py
 
 ---
 
+### Executando o relatório
+
+Para exportar a situação atual do seu estoque consolidado em um documento PDF, o projeto conta com um script gerador independente. Basta rodar o comando abaixo no terminal:
+
+```bash
+python relatorio.py
+```
+O arquivo será gerado e salvo automaticamente na pasta do projeto, pronto para ser impresso, arquivado ou enviado aos gestores e fornecedores.
+
+---
+
 ## 🏗️ Decisões de Projeto
 
 Resumo das principais decisões arquiteturais. O racional completo, com diagramas, está em [`arquitetura.md`](./arquitetura.md).
